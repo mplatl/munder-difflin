@@ -9,8 +9,6 @@ on:
   pull_request_target:
     types: [closed]
     branches: [main]
-  schedule:
-    - cron: '23 5 * * 1'
   workflow_dispatch:
 
 permissions:
