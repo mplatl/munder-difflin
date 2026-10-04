@@ -163,7 +163,13 @@ test('the Claude-only surfaces read the overlay, not a snapshot', () => {
   applyRemoteModelCatalog(parseModelCatalog(ok({
     claude: [{ id: 'claude-next-9', label: 'Next 9' }]
   })));
-  assert.deepEqual(agentModels(), [{ id: 'claude-next-9', label: 'Next 9' }]);
+  // The Claude overlay replaces the Claude list; the DeepSeek BYOK extras the
+  // build ships are appended regardless of the overlay (they are not Claude ids).
+  assert.deepEqual(agentModels(), [
+    { id: 'claude-next-9', label: 'Next 9' },
+    { id: 'deepseek/deepseek-v4-pro', label: 'DeepSeek V4 Pro' },
+    { id: 'deepseek/deepseek-v4-flash', label: 'DeepSeek V4 Flash' }
+  ]);
 });
 
 test('clearing the overlay restores the models the build shipped with', () => {
